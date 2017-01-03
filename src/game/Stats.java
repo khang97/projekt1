@@ -4,9 +4,8 @@ public class Stats extends Main{
 	
 	public static void stats() {
 		
-		message(" -STATS-"
-				+ "\n \n Class: " + playerCharacter 
-				+ "\n Level: " + level  
+		message("<< Stats >>"
+				+ "\n \n Class: " + playerClass 
 				+ "\n Experience: " + xp 
 				+ "\n \n Health: " + health 
 				+ "\n Mana: " + mana 

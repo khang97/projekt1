@@ -1,5 +1,7 @@
 package game;
 
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 public class Main{
@@ -12,12 +14,19 @@ public class Main{
 	public static int strength;
 	public static int intelligence;
 	public static int critical;
-	public static int level;
 	public static int xp;
 	public static int coins;
 	
 	public static int first;
-	public static int inn;
+	public static int inn;	
+	public static int talkInn;
+	public static int buy;
+	
+	public static boolean interactInnkeeper;
+	public static boolean interactWiseOldMan;
+	public static boolean interactThieves;
+	
+	public static boolean inventoryOpen;
 
 	public static void main(String[] args) {
 	
@@ -46,7 +55,11 @@ public class Main{
 		
 		inn();
 		
+		
+				
 	}
+
+	public static ArrayList<String> inventory = new ArrayList();
 	
 	public static void chooseCharacter() {
 		try {
@@ -64,7 +77,7 @@ public class Main{
 		switch (playerCharacter) {
 		
 		case 1:
-			playerClass = "MAGE";
+			playerClass = "Mage";
 			health = 35;
 			mana = 55;
 			armor = 6;
@@ -74,7 +87,7 @@ public class Main{
 			break;
 			
 		case 2:
-			playerClass = "WARRIOR";
+			playerClass = "Warrior";
 			health = 50;
 			mana = 35;
 			armor = 9;
@@ -112,17 +125,167 @@ public class Main{
 							+ "<1> Talk to the Innkeeper behind the counter.\n"
 							+ "<2> Talk to the Wise Old Man in the corner.\n"
 							+ "<3> Join a group of thieves for some beers.\n"
-							+ "<4> Leave the tavern.\n"
-							+ "<0> Open inventory. \n"));
+							+ "<4> Go on an expedition.\n"
+							+ "<9> Show stats.\n"
+							+ "<0> Open inventory.\n"));
 		}
 		catch (NumberFormatException b) {
 			message("Make a decision by typing the number of the option you wish to choose!");
 			inn();
 		}
+		switch(talkInn) {
+		
+		case 1:
+			interactInnkeeper = false;
+			interactInnkeeper = !interactInnkeeper;
+			break;
+			
+		case 2:
+			interactWiseOldMan();
+			break;
+		
+		case 3:
+			interactThieves();
+			break;
+			
+		case 4:
+			exitTavern();
+			break;
+			
+		case 5:
+			inventoryOpen = true;
+			inventoryOpen();
+			break;
+		}
+	}
+	
+	public static void inventoryOpen() {
+		String list;
+		list = inventory.get(0);
+		
+		for (int i = 1; i < inventory.size(); i++) {
+			list = list + "\n" + inventory.get(i);
+		}
+		
+		message(" << Inventory >> \n \n"
+				+ "Coins: " + coins + "\nItems: " + list + "\n");
+	}
+	
+	public static void interactInnkeeper() {
+		try {
+			talkInn = Integer
+					.parseInt(JOptionPane
+					.showInputDialog("Welcome to my inn, " + playerClass + ". What "
+							+ "can I get you? \n \n"
+							+ "<1> Some Bread please. [Heals 20 health] - 8 coins. \n"
+							+ "<2> Some Water please. [Restores 25 mana] - 10 coins. \n"
+							+ "<3> Some Mushroom Soup please. [Restores 20 health and "
+							+ "mana] - 20 coins. \n"
+							+ "<4> I'm good, thanks. \n"
+							+ "Coins: " + coins));
+		}
+		catch (NumberFormatException b) {
+			message("Make a decision by typing the number of the option you wish to choose!");
+			interactInnkeeper();
+		}
+			
+		switch (buy) {
+			
+		case 1:
+			if(coins >= 8) {
+				inventory.add("Bread");
+				coins = coins - 10;
+			} else {
+				message("You don't have enough to pay for that!");
+			}
+			message("You bought a loaf of Bread.");
+			break;
+				
+		case 2:
+			if(coins >= 10) {
+				inventory.add("Water");
+				coins = coins - 10;
+			} else {
+				message("You don't have enough to pay for that!");
+			}
+			message("You bought a glass of Water.");
+			break;
+				
+		case 3:
+			if(coins >= 20) {
+				inventory.add("Mushroom Soup");
+			coins = coins - 20;
+			} else {
+				message("You don't have enough to pay for that!");
+			}
+			message("You bought a bowl of Mushroom Soup.");
+			break;
+		case 4:
+			inn();
+			break;
+		}
 	}
 
+	public static void interactWiseOldMan() {
+		if (interactWiseOldMan = true) {
+			try {
+				talkInn = Integer
+						.parseInt(JOptionPane
+						.showInputDialog("Welcome to my inn, " + playerClass + ". What "
+								+ "can I get you? \n \n"
+								+ "<1> Some Bread please. [Heals 20 health] - 8 coins. \n"
+								+ "<2> Some Water please. [Restores 25 mana] - 10 coins. \n"
+								+ "<3> Some Mushroom Soup please. [Restores 20 health and "
+								+ "mana] - 20 coins. \n"
+								+ "<4> I'm good, thanks. \n"
+								+ "Coins: " + coins));
+			}
+			catch (NumberFormatException b) {
+				message("Make a decision by typing the number of the option you wish to choose!");
+				interactInnkeeper();
+			}
+			
+			switch (buy) {
+			
+			case 1:
+				if(coins >= 8) {
+					inventory.add("Bread");
+					coins = coins - 10;
+				} else {
+					message("You don't have enough to pay for that!");
+				}
+				break;
+				
+			case 2:
+				if(coins >= 10) {
+					inventory.add("Water");
+					coins = coins - 10;
+				} else {
+					message("You don't have enough to pay for that!");
+				}
+				break;
+				
+			case 3:
+				if(coins >= 20) {
+					inventory.add("Mushroom Soup");
+				coins = coins - 20;
+				} else {
+					message("You don't have enough to pay for that!");
+				}
+				break;
+			}
+		}
+	}
+	
+	public static void interactThieves() {
+		
+	}
+
+	public static void exitTavern() {
+		
+	}
+	
 	public static void message(String text) {
 		JOptionPane.showMessageDialog(null, text, "Sands of Time", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
-
