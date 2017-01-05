@@ -228,52 +228,9 @@ public class Main{
 
 	public static void interactWiseOldMan() {
 		if (interactWiseOldMan = true) {
-			try {
-				talkInn = Integer
-						.parseInt(JOptionPane
-						.showInputDialog("Welcome to my inn, " + playerClass + ". What "
-								+ "can I get you? \n \n"
-								+ "<1> Some Bread please. [Heals 20 health] - 8 coins. \n"
-								+ "<2> Some Water please. [Restores 25 mana] - 10 coins. \n"
-								+ "<3> Some Mushroom Soup please. [Restores 20 health and "
-								+ "mana] - 20 coins. \n"
-								+ "<4> I'm good, thanks. \n"
-								+ "Coins: " + coins));
-			}
-			catch (NumberFormatException b) {
-				message("Make a decision by typing the number of the option you wish to choose!");
-				interactInnkeeper();
-			}
 			
-			switch (buy) {
+		} else {
 			
-			case 1:
-				if(coins >= 8) {
-					inventory.add("Bread");
-					coins = coins - 10;
-				} else {
-					message("You don't have enough to pay for that!");
-				}
-				break;
-				
-			case 2:
-				if(coins >= 10) {
-					inventory.add("Water");
-					coins = coins - 10;
-				} else {
-					message("You don't have enough to pay for that!");
-				}
-				break;
-				
-			case 3:
-				if(coins >= 20) {
-					inventory.add("Mushroom Soup");
-				coins = coins - 20;
-				} else {
-					message("You don't have enough to pay for that!");
-				}
-				break;
-			}
 		}
 	}
 	
